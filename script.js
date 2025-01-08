@@ -53,11 +53,39 @@ document.getElementById('search').addEventListener('keypress', function (event) 
     }
 });
 
+document.querySelector('.contact-link').addEventListener('click', () => {
+    gtag('event', 'click', {
+        event_category: 'Contact',
+        event_label: 'Email Link Clicked',
+    });
+});
+
+document.querySelector('.download-link').addEventListener('click', () => {
+    gtag('event', 'click', {
+        event_category: 'Download',
+        event_label: 'Download Raw Data Clicked',
+    });
+});
+
+document.querySelector('.floating-logo-link').addEventListener('click', () => {
+    gtag('event', 'click', {
+        event_category: 'Navigation',
+        event_label: 'Logo Clicked',
+        event_value: 1, // Optional, can represent priority or importance
+    });
+});
 
 document.getElementById('searchButton').addEventListener('click', async function () {
     const county = document.getElementById('county').value.trim().toLowerCase();
     const zip = document.getElementById('zip').value.trim();
     const searchTerm = document.getElementById('search').value.trim().toLowerCase();
+
+    gtag('event', 'search', {
+        event_category: 'Search',
+        search_term: searchTerm || '(blank)', 
+        county: county || '(none)', 
+        zip: zip || '(none)', 
+    });
 
     const voters = await fetchVoters();
     const nameParts = parseSearchTerm(searchTerm);
@@ -132,6 +160,10 @@ document.getElementById('searchButton').addEventListener('click', async function
             showAllLink.href = '#';
 
             showAllLink.addEventListener('click', function (e) {
+                gtag('event', 'click', {
+                    event_category: 'ShowAll',
+                    event_label: 'Show All Clicked',
+                });
                 e.preventDefault();
                 tbody.innerHTML = '';
                 filtered.forEach(voter => {
