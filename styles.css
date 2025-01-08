@@ -1,0 +1,165 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.download-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+select, input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 280px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+button:hover:enabled {
+    background-color: #0056b3;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.results {
+    margin-top: 20px;
+}
+
+.results table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.results th, .results td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+.results th {
+    background-color: #f2f2f2;
+}
+
+.show-all-link {
+    margin-top: 10px;
+    display: inline-block;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.show-all-link:hover {
+    text-decoration: underline;
+}
+
+#response {
+    font-size: 120px;
+    margin: 60px 0;
+}
+
+.yes {
+    color: red;
+    font-weight: bold;
+}
+
+.no {
+    color: blue;
+    font-weight: bold;
+}
+
+.action-message {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.action-message a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.action-message a:hover {
+    text-decoration: underline;
+}
+
+.explanation {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.contact-link {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14px;
+}
+
+.smaller-inputs select, .smaller-inputs input {
+    width: 200px;
+}
+
+.floating-logo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 200px;
+    height: auto;
+    z-index: 1000;
+}
+
+/* Adjust the size for smaller screens */
+@media (max-width: 768px) {
+    .floating-logo {
+        width: 100px; /* Smaller size for phones */
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-logo {
+        width: 80px; /* Even smaller size for very small screens */
+    }
+}

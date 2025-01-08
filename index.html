@@ -4,262 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vote Query</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .download-link {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 14px;
-        }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        select, input[type="text"] {
-            padding: 10px;
-            font-size: 16px;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:disabled {
-            background-color: #aaa;
-            cursor: not-allowed;
-        }
-
-        button:hover:enabled {
-            background-color: #0056b3;
-        }
-
-        .search-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .results {
-            margin-top: 20px;
-        }
-
-        .results table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        .results th, .results td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ccc;
-        }
-
-        .results th {
-            background-color: #f2f2f2;
-        }
-
-        .response {
-            font-size: 48px;
-            margin: 20px 0;
-        }
-
-        .yes {
-            color: red;
-            font-weight: bold;
-        }
-
-        .no {
-            color: blue;
-            font-weight: bold;
-        }
-
-        .action-message {
-            font-size: 16px;
-            margin-top: 10px;
-        }
-
-        .action-message a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .action-message a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
+        <a href="mailto:terry.mahaffey@gmail.com" class="contact-link">Contact</a>
         <a href="voters.csv" class="download-link" download>Download Raw Data</a>
         <h1>Is Judge Griffin trying to cancel your vote?</h1>
-
-        <div class="search-box">
-            <select id="county">
-                <option value="">Select County (Optional)</option>
-                <option value="alamance">Alamance</option>
-                <option value="alexander">Alexander</option>
-                <option value="alleghany">Alleghany</option>
-                <option value="anson">Anson</option>
-                <!-- Add all 100 counties here -->
-                <option value="yancey">Yancey</option>
-            </select>
-
-            <input type="text" id="zip" placeholder="Zip (Optional)">
-        </div>
 
         <div class="search-box">
             <input type="text" id="search" placeholder="Enter name">
             <button id="searchButton" disabled>Search</button>
         </div>
 
-        <div class="response" id="response"></div>
-
-        <div class="results" id="results">
-            <!-- Results table will be dynamically added here -->
+        <div class="search-box smaller-inputs">
+            <select id="county">
+                <option value="">Select County (Optional)</option>
+                <option value="alamance">Alamance</option>
+                <option value="alexander">Alexander</option>
+                <option value="alleghany">Alleghany</option>
+                <option value="anson">Anson</option>
+                <option value="ashe">Ashe</option>
+                <option value="avery">Avery</option>
+                <option value="beaufort">Beaufort</option>
+                <option value="bertie">Bertie</option>
+                <option value="bladen">Bladen</option>
+                <option value="brunswick">Brunswick</option>
+                <option value="buncombe">Buncombe</option>
+                <option value="burke">Burke</option>
+                <option value="cabarrus">Cabarrus</option>
+                <option value="caldwell">Caldwell</option>
+                <option value="camden">Camden</option>
+                <option value="carteret">Carteret</option>
+                <option value="caswell">Caswell</option>
+                <option value="catawba">Catawba</option>
+                <option value="chatham">Chatham</option>
+                <option value="cherokee">Cherokee</option>
+                <option value="chowan">Chowan</option>
+                <option value="clay">Clay</option>
+                <option value="cleveland">Cleveland</option>
+                <option value="columbus">Columbus</option>
+                <option value="craven">Craven</option>
+                <option value="cumberland">Cumberland</option>
+                <option value="currituck">Currituck</option>
+                <option value="dare">Dare</option>
+                <option value="davidson">Davidson</option>
+                <option value="davie">Davie</option>
+                <option value="duplin">Duplin</option>
+                <option value="durham">Durham</option>
+                <option value="edgecombe">Edgecombe</option>
+                <option value="forsyth">Forsyth</option>
+                <option value="franklin">Franklin</option>
+                <option value="gaston">Gaston</option>
+                <option value="gates">Gates</option>
+                <option value="graham">Graham</option>
+                <option value="granville">Granville</option>
+                <option value="greene">Greene</option>
+                <option value="guilford">Guilford</option>
+                <option value="halifax">Halifax</option>
+                <option value="harnett">Harnett</option>
+                <option value="haywood">Haywood</option>
+                <option value="henderson">Henderson</option>
+                <option value="hertford">Hertford</option>
+                <option value="hoke">Hoke</option>
+                <option value="hyde">Hyde</option>
+                <option value="iredell">Iredell</option>
+                <option value="jackson">Jackson</option>
+                <option value="johnston">Johnston</option>
+                <option value="jones">Jones</option>
+                <option value="lee">Lee</option>
+                <option value="lenoir">Lenoir</option>
+                <option value="lincoln">Lincoln</option>
+                <option value="macon">Macon</option>
+                <option value="madison">Madison</option>
+                <option value="martin">Martin</option>
+                <option value="mcdowell">McDowell</option>
+                <option value="mecklenburg">Mecklenburg</option>
+                <option value="mitchell">Mitchell</option>
+                <option value="montgomery">Montgomery</option>
+                <option value="moore">Moore</option>
+                <option value="nash">Nash</option>
+                <option value="new_hanover">New Hanover</option>
+                <option value="northampton">Northampton</option>
+                <option value="onslow">Onslow</option>
+                <option value="orange">Orange</option>
+                <option value="pamlico">Pamlico</option>
+                <option value="pasquotank">Pasquotank</option>
+                <option value="pender">Pender</option>
+                <option value="perquimans">Perquimans</option>
+                <option value="person">Person</option>
+                <option value="pitt">Pitt</option>
+                <option value="polk">Polk</option>
+                <option value="randolph">Randolph</option>
+                <option value="richmond">Richmond</option>
+                <option value="robeson">Robeson</option>
+                <option value="rockingham">Rockingham</option>
+                <option value="rowan">Rowan</option>
+                <option value="rutherford">Rutherford</option>
+                <option value="sampson">Sampson</option>
+                <option value="scotland">Scotland</option>
+                <option value="stanly">Stanly</option>
+                <option value="stokes">Stokes</option>
+                <option value="surry">Surry</option>
+                <option value="swain">Swain</option>
+                <option value="transylvania">Transylvania</option>
+                <option value="tyrrell">Tyrrell</option>
+                <option value="union">Union</option>
+                <option value="vance">Vance</option>
+                <option value="wake">Wake</option>
+                <option value="warren">Warren</option>
+                <option value="washington">Washington</option>
+                <option value="watauga">Watauga</option>
+                <option value="wayne">Wayne</option>
+                <option value="wilkes">Wilkes</option>
+                <option value="wilson">Wilson</option>
+                <option value="yadkin">Yadkin</option>
+                <option value="yancey">Yancey</option>
+            </select>
+            <input type="text" id="zip" placeholder="Zip (Optional)">
         </div>
 
+        <div class="response" id="response"></div>
         <div class="action-message" id="action-message"></div>
+        <div class="results" id="results"></div>
     </div>
 
-    <script>
-        async function fetchVoters() {
-            const response = await fetch('voters.csv');
-            const text = await response.text();
-
-            const rows = text.split('\n').map(row => row.split(','));
-            const headers = rows.shift(); // Remove headers
-            return rows.map(row => {
-                const obj = {};
-                headers.forEach((header, index) => {
-                    obj[header.trim().toLowerCase()] = row[index]?.trim();
-                });
-                return obj;
-            });
-        }
-
-        function parseSearchTerm(searchTerm) {
-            const words = searchTerm.trim().split(/\s+/);
-            const nameParts = { firstname: '', middlename: '', lastname: '' };
-
-            if (words.length === 1) {
-                nameParts.lastname = words[0].toLowerCase();
-            } else if (words.length === 2) {
-                nameParts.firstname = words[0].toLowerCase();
-                nameParts.lastname = words[1].toLowerCase();
-            } else if (words.length > 2) {
-                nameParts.firstname = words[0].toLowerCase();
-                nameParts.lastname = words[words.length - 1].toLowerCase();
-                nameParts.middlename = words.slice(1, -1).join(' ').toLowerCase();
-            }
-
-            return nameParts;
-        }
-
-        document.getElementById('search').addEventListener('input', function () {
-            const searchButton = document.getElementById('searchButton');
-            searchButton.disabled = !this.value.trim();
-        });
-
-        document.getElementById('searchButton').addEventListener('click', async function () {
-            const county = document.getElementById('county').value.trim().toLowerCase();
-            const zip = document.getElementById('zip').value.trim();
-            const searchTerm = document.getElementById('search').value.trim().toLowerCase();
-
-            const voters = await fetchVoters();
-            const nameParts = parseSearchTerm(searchTerm);
-
-            const filtered = voters.filter(voter => {
-                const lastname = voter.lastname ? voter.lastname.toLowerCase() : '';
-                const firstname = voter.firstname ? voter.firstname.toLowerCase() : '';
-                const middlename = voter.middlename ? voter.middlename.toLowerCase() : '';
-
-                return (
-                    (county === '' || voter.county === county) &&
-                    (zip === '' || voter.zip === zip) &&
-                    lastname.includes(nameParts.lastname) &&
-                    firstname.includes(nameParts.firstname) &&
-                    middlename.includes(nameParts.middlename)
-                );
-            });
-
-            const resultsDiv = document.getElementById('results');
-            const responseDiv = document.getElementById('response');
-            const actionMessageDiv = document.getElementById('action-message');
-
-            resultsDiv.innerHTML = '';
-            responseDiv.innerHTML = '';
-            actionMessageDiv.innerHTML = '';
-
-            if (filtered.length > 0) {
-                responseDiv.textContent = 'YES';
-                responseDiv.className = 'yes';
-
-                const table = document.createElement('table');
-                const thead = document.createElement('thead');
-                const tbody = document.createElement('tbody');
-
-                const headers = ['County', 'Last Name', 'First Name', 'Middle Name', 'Zip'];
-                const headerRow = document.createElement('tr');
-                headers.forEach(header => {
-                    const th = document.createElement('th');
-                    th.textContent = header;
-                    headerRow.appendChild(th);
-                });
-                thead.appendChild(headerRow);
-                table.appendChild(thead);
-
-                filtered.slice(0, 10).forEach(voter => {
-                    const row = document.createElement('tr');
-                    headers.forEach(header => {
-                        const td = document.createElement('td');
-                        td.textContent = voter[header.toLowerCase().replace(' ', '')] || '';
-                        row.appendChild(td);
-                    });
-                    tbody.appendChild(row);
-                });
-
-                table.appendChild(tbody);
-                resultsDiv.appendChild(table);
-
-                actionMessageDiv.innerHTML = `To fight back, make it clear your vote was NOT illegally cast by filling out this form <a href="https://act.commoncause.org/forms/tell-the-nc-supreme-court-we-matter" target="_blank">HERE</a>.`;
-            } else {
-                responseDiv.textContent = 'NO';
-                responseDiv.className = 'no';
-            }
-        });
-    </script>
+    <img src="logo.png" alt="Logo" class="floating-logo">
+    <script src="script.js"></script>
 </body>
 </html>
