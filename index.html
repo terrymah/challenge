@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Query</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .download-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        select, input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+
+        button:hover:enabled {
+            background-color: #0056b3;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .results {
+            margin-top: 20px;
+        }
+
+        .results table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .results th, .results td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+
+        .results th {
+            background-color: #f2f2f2;
+        }
+
+        .response {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+
+        .yes {
+            color: red;
+            font-weight: bold;
+        }
+
+        .no {
+            color: blue;
+            font-weight: bold;
+        }
+
+        .action-message {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .action-message a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .action-message a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="voters.csv" class="download-link" download>Download Raw Data</a>
+        <h1>Is Judge Griffin trying to cancel your vote?</h1>
+
+        <div class="search-box">
+            <select id="county">
+                <option value="">Select County (Optional)</option>
+                <option value="alamance">Alamance</option>
+                <option value="alexander">Alexander</option>
+                <option value="alleghany">Alleghany</option>
+                <option value="anson">Anson</option>
+                <!-- Add all 100 counties here -->
+                <option value="yancey">Yancey</option>
+            </select>
+
+            <input type="text" id="zip" placeholder="Zip (Optional)">
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Enter name">
+            <button id="searchButton" disabled>Search</button>
+        </div>
+
+        <div class="response" id="response"></div>
+
+        <div class="results" id="results">
+            <!-- Results table will be dynamically added here -->
+        </div>
+
+        <div class="action-message" id="action-message"></div>
+    </div>
+
+    <script>
+        async function fetchVoters() {
+            const response = await fetch('voters.csv');
+            const text = await response.text();
+
+            const rows = text.split('\n').map(row => row.split(','));
+            const headers = rows.shift(); // Remove headers
+            return rows.map(row => {
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header.trim().toLowerCase()] = row[index]?.trim();
+                });
+                return obj;
+            });
+        }
+
+        function parseSearchTerm(searchTerm) {
+            const words = searchTerm.trim().split(/\s+/);
+            const nameParts = { firstname: '', middlename: '', lastname: '' };
+
+            if (words.length === 1) {
+                nameParts.lastname = words[0].toLowerCase();
+            } else if (words.length === 2) {
+                nameParts.firstname = words[0].toLowerCase();
+                nameParts.lastname = words[1].toLowerCase();
+            } else if (words.length > 2) {
+                nameParts.firstname = words[0].toLowerCase();
+                nameParts.lastname = words[words.length - 1].toLowerCase();
+                nameParts.middlename = words.slice(1, -1).join(' ').toLowerCase();
+            }
+
+            return nameParts;
+        }
+
+        document.getElementById('search').addEventListener('input', function () {
+            const searchButton = document.getElementById('searchButton');
+            searchButton.disabled = !this.value.trim();
+        });
+
+        document.getElementById('searchButton').addEventListener('click', async function () {
+            const county = document.getElementById('county').value.trim().toLowerCase();
+            const zip = document.getElementById('zip').value.trim();
+            const searchTerm = document.getElementById('search').value.trim().toLowerCase();
+
+            const voters = await fetchVoters();
+            const nameParts = parseSearchTerm(searchTerm);
+
+            const filtered = voters.filter(voter => {
+                const lastname = voter.lastname ? voter.lastname.toLowerCase() : '';
+                const firstname = voter.firstname ? voter.firstname.toLowerCase() : '';
+                const middlename = voter.middlename ? voter.middlename.toLowerCase() : '';
+
+                return (
+                    (county === '' || voter.county === county) &&
+                    (zip === '' || voter.zip === zip) &&
+                    lastname.includes(nameParts.lastname) &&
+                    firstname.includes(nameParts.firstname) &&
+                    middlename.includes(nameParts.middlename)
+                );
+            });
+
+            const resultsDiv = document.getElementById('results');
+            const responseDiv = document.getElementById('response');
+            const actionMessageDiv = document.getElementById('action-message');
+
+            resultsDiv.innerHTML = '';
+            responseDiv.innerHTML = '';
+            actionMessageDiv.innerHTML = '';
+
+            if (filtered.length > 0) {
+                responseDiv.textContent = 'YES';
+                responseDiv.className = 'yes';
+
+                const table = document.createElement('table');
+                const thead = document.createElement('thead');
+                const tbody = document.createElement('tbody');
+
+                const headers = ['County', 'Last Name', 'First Name', 'Middle Name', 'Zip'];
+                const headerRow = document.createElement('tr');
+                headers.forEach(header => {
+                    const th = document.createElement('th');
+                    th.textContent = header;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                filtered.slice(0, 10).forEach(voter => {
+                    const row = document.createElement('tr');
+                    headers.forEach(header => {
+                        const td = document.createElement('td');
+                        td.textContent = voter[header.toLowerCase().replace(' ', '')] || '';
+                        row.appendChild(td);
+                    });
+                    tbody.appendChild(row);
+                });
+
+                table.appendChild(tbody);
+                resultsDiv.appendChild(table);
+
+                actionMessageDiv.innerHTML = `To fight back, make it clear your vote was NOT illegally cast by filling out this form <a href="https://act.commoncause.org/forms/tell-the-nc-supreme-court-we-matter" target="_blank">HERE</a>.`;
+            } else {
+                responseDiv.textContent = 'NO';
+                responseDiv.className = 'no';
+            }
+        });
+    </script>
+</body>
+</html>
