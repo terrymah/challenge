@@ -151,6 +151,10 @@ button:hover:enabled {
     z-index: 1000;
 }
 
+.floating-logo-link {
+    text-decoration: none;
+}
+
 /* Adjust the size for smaller screens */
 @media (max-width: 768px) {
     .floating-logo {
