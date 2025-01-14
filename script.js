@@ -121,7 +121,7 @@ document.getElementById('searchButton').addEventListener('click', async function
         responseDiv.textContent = 'YES';
         responseDiv.className = 'yes';
 
-        actionMessageDiv.innerHTML = `First, confirm that you are listed below. If you are, learn how to fight back and make it clear your vote was NOT illegally cast by <a href="https://act.commoncause.org/forms/tell-the-nc-supreme-court-we-matter" target="_blank">filling out this form</a>.`;
+        actionMessageDiv.innerHTML = `This table displays voters whose ballots are being challenged. Confirm that you are listed below. If you are, fight back and make it clear your vote is NOT illegally cast by <a href="https://act.commoncause.org/forms/tell-the-nc-supreme-court-we-matter" target="_blank">filling out this form</a>.`;
 
         const explanation = document.createElement('div');
         explanation.className = 'explanation';

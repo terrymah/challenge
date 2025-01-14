@@ -21,9 +21,14 @@
         <a href="mailto:terry.mahaffey+challenge@gmail.com" class="contact-link">Contact</a>
 
         <div class="download-links">
-            <a href="GriffinAllegedIncompleteRegList.xlsx" class="download-link" download>Incomplete Reg </a>
+            <a href="GriffinCompleteChallengeList.xlsx" class="download-link" download>Full List (h/t Bob Hall)</a>
         </div>        
-        <h1>Is Jefferson Griffin trying to cancel your vote?</h1>
+
+        <p class="initial-message">
+            Jefferson Griffin has challenged the legality of over 60,000 votes in North Carolina. You can search by name, county, or ZIP code to see if your vote is being questioned.
+        </p>
+
+        <h1>Is Jefferson Griffin trying to CANCEL your vote?</h1>
 
         <div class="search-box">
             <input type="text" id="search" placeholder="Name (First Last, or just Last)">
@@ -31,7 +36,7 @@
         </div>
 
         <div class="search-box smaller-inputs">
-            <select id="county">
+            <select style="width: 50%;" id="county">
                 <option value="">Select County (Optional)</option>
                 <option value="alamance">Alamance</option>
                 <option value="alexander">Alexander</option>
@@ -141,22 +146,19 @@
         <div class="action-message" id="action-message"></div>
 
         <div class="explanation-container" style="display: none;">
-            <p>
-                Jefferson Griffin has challenged the legality of certain votes. This table displays voters whose ballots are being questioned. You can search by name, county, or ZIP code to see if your vote is being questioned.
-            </p>
             <div class="collapsible-section">
                 <button class="toggle-explanation">
-                    <span class="chevron">▶</span> Details About Challenged Votes
+                    <span class="chevron">▶</span> Reason Codes: Open to Learn Reason for Challenges
                 </button>
                 <div class="explanation-content" style="display: none;">
                     <ul>
-                        <li>❌ <strong>Invalid:</strong> Invalid registration – your voter registration record lacks a verified DMV ID or SSN number (but you showed ID when you voted).</li>
-                        <li>🌐 <strong>Overseas:</strong> No ID from overseas voter – you did not send a copy of a photo ID with your ballot (but overseas voters are exempt from the ID law).</li>
-                        <li>🚫 <strong>Not A Resident:</strong> Not a NC resident – you live overseas and have never lived in NC (but NC law says family members of a NC citizen living abroad may vote).</li>
+                        <li>❌ <strong>Invalid:</strong> Griffin alleges your registration record your voter registration record lacks a verified DMV ID or SSN number (but you showed ID when you voted).</li>
+                        <li>🌐 <strong>Overseas:</strong> Griffin alleges you are an overseas voter who did not send a copy of a photo ID with your ballot (but overseas voters are exempt from the ID law).</li>
+                        <li>🚫 <strong>Not A Resident:</strong> Griffin alleges you live overseas and have never lived in NC (but NC law says family members of a NC citizen living abroad may vote).</li>
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>        
 
         <div class="results" id="results"></div>
     </div>
