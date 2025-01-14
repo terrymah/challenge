@@ -16,12 +16,25 @@ body {
     position: relative;
 }
 
-.download-link {
+.download-links {
+    display: flex;
+    gap: 10px; /* Space between the links */
+    justify-content: flex-end; /* Align links to the right */
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 16px;
 }
+
+.download-link {
+    font-size: 16px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.download-link:hover {
+    text-decoration: underline;
+}
+
 
 h1 {
     font-size: 24px;
@@ -114,8 +127,9 @@ button:hover:enabled {
 }
 
 .action-message {
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 20px;
+    text-align: left;
 }
 
 .action-message a {
@@ -166,4 +180,50 @@ button:hover:enabled {
     .floating-logo {
         width: 80px; /* Even smaller size for very small screens */
     }
+}
+
+.explanation-container {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.collapsible-section {
+    margin-top: 10px;
+}
+
+.toggle-explanation {
+    background: none; /* Ensure no background */
+    border: none; /* No border */
+    color: #007bff; /* Default text color */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    display: flex; /* Flex layout for chevron and text alignment */
+    align-items: center; /* Vertically align chevron and text */
+    text-decoration: none; /* No underline */
+    outline: none; /* No focus outline */
+}
+
+.toggle-explanation:hover {
+    background: none; /* Ensure no background on hover */
+    text-decoration: none; /* Prevent underline on hover */
+}
+
+.chevron {
+    display: inline-block; /* Inline block for proper spacing */
+    margin-right: 5px; /* Space between chevron and text */
+    transition: transform 0.3s ease; /* Smooth rotation transition */
+    text-decoration: none; /* Prevent underline on chevron */
+    color: inherit; /* Match the text color */
+}
+
+.chevron.open {
+    transform: rotate(90deg); /* Rotate chevron to point down */
+}
+
+.explanation-content {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 10px;
 }

@@ -88,6 +88,7 @@ document.getElementById('searchButton').addEventListener('click', async function
     });
 
     const voters = await fetchVoters();
+    console.log(voters);
     const nameParts = parseSearchTerm(searchTerm);
 
     const filtered = voters.filter(voter => {
@@ -120,18 +121,17 @@ document.getElementById('searchButton').addEventListener('click', async function
         responseDiv.textContent = 'YES';
         responseDiv.className = 'yes';
 
-        actionMessageDiv.innerHTML = `First, confirm that you are listed below. If you are, fight back and make it clear your vote was NOT illegally cast by <a href="https://act.commoncause.org/forms/tell-the-nc-supreme-court-we-matter" target="_blank">filling out this form</a>.`;
+        actionMessageDiv.innerHTML = `First, confirm that you are listed below. If you are, learn how to fight back and make it clear your vote was NOT illegally cast by <a href="https://act.commoncause.org/forms/tell-the-nc-supreme-court-we-matter" target="_blank">filling out this form</a>.`;
 
         const explanation = document.createElement('div');
         explanation.className = 'explanation';
-        explanation.textContent = 'Judge Griffin has challenged the legality of the votes cast by the following people matching your search criteria:';
         resultsDiv.appendChild(explanation);
 
         const table = document.createElement('table');
         const thead = document.createElement('thead');
         const tbody = document.createElement('tbody');
 
-        const headers = ['County', 'Last Name', 'First Name', 'Middle Name', 'Zip'];
+        const headers = ['County', 'Last Name', 'First Name', 'Middle Name', 'Zip', 'Reason'];
         const headerRow = document.createElement('tr');
         headers.forEach(header => {
             const th = document.createElement('th');
@@ -144,10 +144,27 @@ document.getElementById('searchButton').addEventListener('click', async function
         let showAllLink;
         const rowsToShow = 10;
         filtered.slice(0, rowsToShow).forEach(voter => {
+            console.log(voter);
             const row = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
-                td.textContent = voter[header.toLowerCase().replace(' ', '')] || '';
+                if (header.toLowerCase() === 'reason') {
+                    if (voter.reason == 'i') {
+                        td.textContent = '❌';
+                        td.title =  'Invalid registration – your voter registration record lacks a verified DMV ID or SSN number (but you showed ID when you voted)';
+                    } else if (voter.reason == 'o') {
+                        td.textContent = '🌐';
+                        td.title = 'No ID from overseas voter – you did not send a copy of a photo ID with your ballot (but overseas voters are exempt from the ID law)';
+                    } else if (voter.reason == 'n') {
+                        td.textContent = '🚫';
+                        td.title = 'Not a NC resident – you live overseas and have never lived in NC (but NC law says family members of a NC citizen living abroad may vote)';
+                    } else {
+                        td.textContent = '❓';
+                        td.title = 'Unknown reason';
+                    }
+                } else {
+                    td.textContent = voter[header.toLowerCase().replace(' ', '')] || '';
+                }
                 row.appendChild(td);
             });
             tbody.appendChild(row);
@@ -170,7 +187,23 @@ document.getElementById('searchButton').addEventListener('click', async function
                     const row = document.createElement('tr');
                     headers.forEach(header => {
                         const td = document.createElement('td');
-                        td.textContent = voter[header.toLowerCase().replace(' ', '')] || '';
+                        if (header.toLowerCase() === 'reason') {
+                            if (voter.reason == 'i') {
+                                td.textContent = '❌';
+                                td.title =  'Invalid registration – your voter registration record lacks a verified DMV ID or SSN number (but you showed ID when you voted)';
+                            } else if (voter.reason == 'o') {
+                                td.textContent = '🌐';
+                                td.title = 'No ID from overseas voter – you did not send a copy of a photo ID with your ballot (but overseas voters are exempt from the ID law)';
+                            } else if (voter.reason == 'n') {
+                                td.textContent = '🚫';
+                                td.title = 'Not a NC resident – you live overseas and have never lived in NC (but NC law says family members of a NC citizen living abroad may vote)';
+                            } else {
+                                td.textContent = '❓';
+                                td.title = 'Unknown reason';
+                            }
+                        } else {
+                            td.textContent = voter[header.toLowerCase().replace(' ', '')] || '';
+                        }
                         row.appendChild(td);
                     });
                     tbody.appendChild(row);
@@ -189,4 +222,33 @@ document.getElementById('searchButton').addEventListener('click', async function
         responseDiv.textContent = 'NO';
         responseDiv.className = 'no';
     }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.querySelector('.toggle-explanation');
+    const chevron = document.querySelector('.chevron');
+    const explanationContent = document.querySelector('.explanation-content');
+    const collapsibleSection = document.querySelector('.explanation-container');
+    const resultsDiv = document.getElementById('results');
+
+    // Show/hide the collapsible section based on search results
+    const showCollapsibleSection = () => {
+        collapsibleSection.style.display = resultsDiv.innerHTML.trim() ? 'block' : 'none';
+    };
+
+    // Update when search results are displayed
+    document.getElementById('searchButton').addEventListener('click', () => {
+        setTimeout(showCollapsibleSection, 100); // Slight delay to allow results rendering
+    });
+
+    // Toggle the chevron and explanation content
+    toggleButton.addEventListener('click', () => {
+        if (explanationContent.style.display === 'none') {
+            explanationContent.style.display = 'block';
+            chevron.classList.add('open');
+        } else {
+            explanationContent.style.display = 'none';
+            chevron.classList.remove('open');
+        }
+    });
 });

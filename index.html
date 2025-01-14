@@ -22,8 +22,9 @@
 
         <div class="download-links">
             Data files (h/t Bob Hall):
-            <a href="GriffinFPCAList.xlsx" class="download-link" download>Overseas </a>
-            <a href="GriffinAllegedIncompleteRegList.xlsx" class="download-link" download>Incomplete Reg</a>
+            <a href="GriffinFPCAList-WithNCID.xlsx" class="download-link" download>Overseas </a>
+            <a href="GriffinAllegedIncompleteRegList.xlsx" class="download-link" download>Incomplete Reg </a>
+            <a href="GriffinUOCAVAList.xlsx" class="download-link" download>UOCAVA</a>
         </div>        
         <h1>Is Jefferson Griffin trying to cancel your vote?</h1>
 
@@ -141,6 +142,25 @@
 
         <div class="response" id="response"></div>
         <div class="action-message" id="action-message"></div>
+
+        <div class="explanation-container" style="display: none;">
+            <p>
+                Jefferson Griffin has challenged the legality of certain votes. This table displays voters whose ballots are being questioned. You can search by name, county, or ZIP code to see if your vote is being questioned.
+            </p>
+            <div class="collapsible-section">
+                <button class="toggle-explanation">
+                    <span class="chevron">▶</span> Details About Challenged Votes
+                </button>
+                <div class="explanation-content" style="display: none;">
+                    <ul>
+                        <li>❌ <strong>Invalid:</strong> Invalid registration – your voter registration record lacks a verified DMV ID or SSN number (but you showed ID when you voted).</li>
+                        <li>🌐 <strong>Overseas:</strong> No ID from overseas voter – you did not send a copy of a photo ID with your ballot (but overseas voters are exempt from the ID law).</li>
+                        <li>🚫 <strong>Not A Resident:</strong> Not a NC resident – you live overseas and have never lived in NC (but NC law says family members of a NC citizen living abroad may vote).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div class="results" id="results"></div>
     </div>
 
