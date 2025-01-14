@@ -88,7 +88,6 @@ document.getElementById('searchButton').addEventListener('click', async function
     });
 
     const voters = await fetchVoters();
-    console.log(voters);
     const nameParts = parseSearchTerm(searchTerm);
 
     const filtered = voters.filter(voter => {
@@ -144,7 +143,6 @@ document.getElementById('searchButton').addEventListener('click', async function
         let showAllLink;
         const rowsToShow = 10;
         filtered.slice(0, rowsToShow).forEach(voter => {
-            console.log(voter);
             const row = document.createElement('tr');
             headers.forEach(header => {
                 const td = document.createElement('td');
