@@ -179,7 +179,7 @@ button:hover:enabled {
 /* Adjust the size for smaller screens */
 @media (max-width: 768px) {
     .floating-logo {
-        width: 100px; /* Smaller size for phones */
+        width: 150px; /* Smaller size for phones */
     }
 
     .hide-on-small-screen {
