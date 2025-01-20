@@ -271,31 +271,29 @@ document.getElementById('searchButton').addEventListener('click', async function
     displayResults(filtered, searchTerm);
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.querySelector('.toggle-explanation');
-    const chevron = document.querySelector('.chevron');
-    const explanationContent = document.querySelector('.explanation-content');
-    const collapsibleSection = document.querySelector('.explanation-container');
-    const resultsDiv = document.getElementById('results');
+const toggleButton = document.querySelector('.toggle-explanation');
+const chevron = document.querySelector('.chevron');
+const explanationContent = document.querySelector('.explanation-content');
+const collapsibleSection = document.querySelector('.explanation-container');
+const resultsDiv = document.getElementById('results');
 
-    // Show/hide the collapsible section based on search results
-    const showCollapsibleSection = () => {
-        collapsibleSection.style.display = resultsDiv.innerHTML.trim() ? 'block' : 'none';
-    };
+// Show/hide the collapsible section based on search results
+const showCollapsibleSection = () => {
+    collapsibleSection.style.display = resultsDiv.innerHTML.trim() ? 'block' : 'none';
+};
 
-    // Update when search results are displayed
-    document.getElementById('searchButton').addEventListener('click', () => {
-        setTimeout(showCollapsibleSection, 100); // Slight delay to allow results rendering
-    });
+// Update when search results are displayed
+document.getElementById('searchButton').addEventListener('click', () => {
+    setTimeout(showCollapsibleSection, 100); // Slight delay to allow results rendering
+});
 
-    // Toggle the chevron and explanation content
-    toggleButton.addEventListener('click', () => {
-        if (explanationContent.style.display === 'none') {
-            explanationContent.style.display = 'block';
-            chevron.classList.add('open');
-        } else {
-            explanationContent.style.display = 'none';
-            chevron.classList.remove('open');
-        }
-    });
+// Toggle the chevron and explanation content
+toggleButton.addEventListener('click', () => {
+    if (explanationContent.style.display === 'none') {
+        explanationContent.style.display = 'block';
+        chevron.classList.add('open');
+    } else {
+        explanationContent.style.display = 'none';
+        chevron.classList.remove('open');
+    }
 });
