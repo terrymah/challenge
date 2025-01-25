@@ -163,12 +163,14 @@ function displayResults(filteredResults, searchTerm) {
     const resultsDiv = document.getElementById('results');
     const responseDiv = document.getElementById('response');
     const actionMessageDiv = document.getElementById('action-message');
+    const collapsibleSection = document.querySelector('.explanation-container');
 
     resultsDiv.innerHTML = '';
     responseDiv.innerHTML = '';
     actionMessageDiv.innerHTML = '';
 
     if (sortedResults.length > 0) {
+        collapsibleSection.style.display = 'block';
         responseDiv.textContent = 'YES';
         responseDiv.className = 'yes';
 
@@ -230,6 +232,7 @@ function displayResults(filteredResults, searchTerm) {
             resultsDiv.appendChild(showAllLink);
         }
     } else {
+        collapsibleSection.style.display = 'none';
         responseDiv.textContent = 'NO';
         responseDiv.className = 'no';
     }
@@ -274,18 +277,6 @@ document.getElementById('searchButton').addEventListener('click', async function
 const toggleButton = document.querySelector('.toggle-explanation');
 const chevron = document.querySelector('.chevron');
 const explanationContent = document.querySelector('.explanation-content');
-const collapsibleSection = document.querySelector('.explanation-container');
-const resultsDiv = document.getElementById('results');
-
-// Show/hide the collapsible section based on search results
-const showCollapsibleSection = () => {
-    collapsibleSection.style.display = resultsDiv.innerHTML.trim() ? 'block' : 'none';
-};
-
-// Update when search results are displayed
-document.getElementById('searchButton').addEventListener('click', () => {
-    setTimeout(showCollapsibleSection, 100); // Slight delay to allow results rendering
-});
 
 // Toggle the chevron and explanation content
 toggleButton.addEventListener('click', () => {
